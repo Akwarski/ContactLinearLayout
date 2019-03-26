@@ -45,10 +45,15 @@ public class ChangeContact extends AppCompatActivity {
     }
 
     public void confirm(View view) {
-        Intent intent = new Intent();
-        intent.putExtra("nameSet", nameSet);
-        setResult(RESULT_OK, intent);
-        finish();
+        if(checked) {
+            Intent intent = new Intent();
+            intent.putExtra("nameSet", nameSet);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Select contact", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void chooseName(View view) {

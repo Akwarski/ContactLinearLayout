@@ -59,11 +59,14 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                         if(temporary == sound && flag == 0) {
                             flag = 1;
+                            fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_media_play));
                             mp.pause();
                         }else if(temporary == sound && flag == 1){
                             flag = 0;
+                            fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_media_pause));
                             mp.start();
                         }else if(temporary != sound){
+                            fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_media_play));
                             stopPlayer();
                         }
                         fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_media_play));
