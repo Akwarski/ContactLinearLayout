@@ -132,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
                 name = data.getStringExtra("nameSet");
 
                 if(!temp.equals(name)){
-                    //tv.setText(Base64.encodeToString(name.getBytes(),Base64.DEFAULT));
                     tv.setText(new String((Base64.decode(name,Base64.DEFAULT))));
                     randNum();
                 }
