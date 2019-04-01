@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,41 +39,22 @@ public class MainActivity extends AppCompatActivity {
         iv = findViewById(R.id.iv);
         tv = findViewById(R.id.textView);
 
+        randNum();
+
         final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                try{
-                    if(mp == null){
-                        mp = MediaPlayer.create(getApplicationContext(), sound);
-                        fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_media_pause));
-                        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mp) {
-                                stopPlayer();
-                                fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_media_play));
-                            }
-                        });
-                        temporary = sound;
-                        mp.start();
-                    }else{
-                        if(temporary == sound && flag == 0) {
-                            flag = 1;
-                            fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_media_play));
-                            mp.pause();
-                        }else if(temporary == sound && flag == 1){
-                            flag = 0;
-                            fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_media_pause));
-                            mp.start();
-                        }else if(temporary != sound){
-                            fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_media_play));
-                            stopPlayer();
-                        }
-                        fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_media_play));
-                    }
-                }catch (Resources.NotFoundException e){
-                    Snackbar.make(view, "Please Choose sound", Snackbar.LENGTH_LONG).show();
+                if(mp != null){
+                    mp.stop();
+                    mp = null;
+                }else{
+                    mp = MediaPlayer.create(getApplicationContext(), sound);
+                    mp.start();
+
+                    Snackbar.make(view, "playing...", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
             }
         });
@@ -150,7 +132,8 @@ public class MainActivity extends AppCompatActivity {
                 name = data.getStringExtra("nameSet");
 
                 if(!temp.equals(name)){
-                    tv.setText(name);
+                    //tv.setText(Base64.encodeToString(name.getBytes(),Base64.DEFAULT));
+                    tv.setText(new String((Base64.decode(name,Base64.DEFAULT))));
                     randNum();
                 }
 

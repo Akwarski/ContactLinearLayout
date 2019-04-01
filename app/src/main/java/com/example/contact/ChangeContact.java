@@ -3,6 +3,7 @@ package com.example.contact;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -20,21 +21,17 @@ public class ChangeContact extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_contact);
-
         tabString = getResources().getStringArray(R.array.contacts);
-
         rb1 = findViewById(R.id.rb1);
+        rb1.setText(new String((Base64.decode(tabString[0],Base64.DEFAULT))));
         rb2 = findViewById(R.id.rb2);
+        rb2.setText(new String((Base64.decode(tabString[1],Base64.DEFAULT))));
         rb3 = findViewById(R.id.rb3);
+        rb3.setText(new String((Base64.decode(tabString[2],Base64.DEFAULT))));
         rb4 = findViewById(R.id.rb4);
+        rb4.setText(new String((Base64.decode(tabString[3],Base64.DEFAULT))));
         rb5 = findViewById(R.id.rb5);
-
-        rb1.setText(tabString[0]);
-        rb2.setText(tabString[1]);
-        rb3.setText(tabString[2]);
-        rb4.setText(tabString[3]);
-        rb5.setText(tabString[4]);
-
+        rb5.setText(new String((Base64.decode(tabString[4],Base64.DEFAULT))));
         cancel = findViewById(R.id.cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
